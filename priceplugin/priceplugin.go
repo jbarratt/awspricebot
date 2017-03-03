@@ -27,7 +27,7 @@ func (price *PricePlugin) InitPlugin(bot *slick.Bot) {
 	price.bot = bot
 	awsprice.FetchJSON()
 	awsprice.ProcessJSON()
-	pricer, err := awsprice.LoadSimplePrices()
+	pricer, err := awsprice.LoadPriceDB()
 	if err != nil {
 		panic(err)
 	}
@@ -49,7 +49,7 @@ func (price *PricePlugin) ChatHandler(listen *slick.Listener, msg *slick.Message
 		if err != nil {
 			msg.Reply("Unable to find a price for '%s'\n", payload)
 		} else {
-			msg.Reply(fmt.Sprintf("```\n%s\n```", value))
+			msg.Reply(fmt.Sprintf("```\n%s```", value))
 		}
 
 	}
